@@ -1,7 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Todo, TodoListState} from '../types';
-import PersistanceHelper from '../helpers/PersistanceHelper';
-import {TODO_KEY} from '../consts';
 
 const initialState: TodoListState = {
   nextId: 1,
@@ -15,14 +13,13 @@ export const TodoListSlice = createSlice({
     add: (state, action) => {
       const newItem: Todo = {id: state.nextId++, ...action.payload};
       console.log('newItem:', newItem);
+      console.log('state:', state);
       state.list.push(newItem);
-      PersistanceHelper.setObject(TODO_KEY, state);
     },
     remove: (state, action) => {
       state.list = state.list.filter(i => {
         return i.id !== action.payload;
       });
-      PersistanceHelper.setObject(TODO_KEY, state);
     },
     set: (state, action) => {
       console.log('set:', action.payload);

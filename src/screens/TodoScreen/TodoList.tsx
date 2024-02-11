@@ -1,57 +1,49 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 import {FlatList} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {Todo} from '../../types';
+import {useSelector} from 'react-redux';
 import {RootState} from '../../store';
-import MyHeader from '../../components/MyHeader';
-import MyText from '../../components/MyText';
-import MyButton from '../../components/MyButton';
-import {remove} from '../../features/todoListSlice';
+import PersistanceHelper from '../../helpers/PersistanceHelper';
+import {TODO_KEY} from '../../consts';
+import ListItem from './ListItem';
+import {Todo} from '../../types';
 
 const TodoList = () => {
   console.log('todolist render');
-  const data = useSelector((state: RootState) => state.todoList.list);
+  const data = useSelector((state: RootState) => state.todoList);
+
+  // async storage when the list changes
+  useEffect(() => {
+    console.log('todolist changed');
+    console.log('data is:', data);
+    PersistanceHelper.setObject(TODO_KEY, data);
+  }, [data]);
+
+  type Todo = {
+    id: number;
+    title: string;
+    description: string;
+    dueDate: number;
+  };
+
+  const render = useCallback(
+    ({item}: {item: Todo}) => (
+      <ListItem
+        id={item.id}
+        title={item.title}
+        description={item.description}
+        dueDate={item.dueDate}
+      />
+    ),
+    [],
+  );
+
   return (
     <FlatList
-      data={data}
-      renderItem={({item}) => (
-        <ListItem
-          id={item.id}
-          title={item.title}
-          description={item.description}
-          dueDate={item.dueDate}
-        />
-      )}
+      data={data.list}
+      renderItem={render}
       keyExtractor={(_, index) => index.toString()}
     />
   );
 };
 
-const ListItem = ({id, title, description, dueDate}: Todo) => {
-  const dispatch = useDispatch();
-  return (
-    <View style={styles.item}>
-      <MyHeader>{title}</MyHeader>
-      <MyText>{id}</MyText>
-      <MyText>{description}</MyText>
-      <Text>{dueDate}</Text>
-      <View style={styles.removeButtonView}>
-        <MyButton
-          title={'remove'}
-          submit={() => {
-            dispatch(remove(id));
-          }}
-          disabled={false}
-        />
-      </View>
-    </View>
-  );
-};
-
-export default TodoList;
-
-const styles = StyleSheet.create({
-  item: {backgroundColor: 'salmon', margin: 3},
-  removeButtonView: {alignItems: 'center'},
-});
+export default memo(TodoList);

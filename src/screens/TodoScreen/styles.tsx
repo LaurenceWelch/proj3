@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   main: {flex: 1},
-  buttons: {flexDirection: 'row'},
-  footer: {alignItems: 'center'},
+  footer: {alignItems: 'center', backgroundColor: 'khaki', margin: 3},
+  loading: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });
 
 export default styles;

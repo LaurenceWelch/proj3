@@ -5,7 +5,11 @@ export type Todo = {
   description: string;
   dueDate: number;
 };
-export type TodoListState = {nextId: number; list: Todo[]};
+
+export type TodoListState = {
+  nextId: number;
+  list: Todo[];
+};
 
 // cart stuff
 export type cartState = {list: Product[]};

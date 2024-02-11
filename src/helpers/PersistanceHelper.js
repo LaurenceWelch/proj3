@@ -26,12 +26,15 @@ class PersistanceHelper {
   getObject = async key => {
     try {
       const stringifiedObject = await this.getValue(key);
-      //console.log(stringifiedObject);
-      //console.log('STRINGIFIED ^');
+      console.log(stringifiedObject);
+      console.log('STRINGIFIED ^');
+      const obj = JSON.parse(stringifiedObject);
+      if (Object.keys(obj).length === 0) {
+        throw new Error('empty object found');
+      }
       return JSON.parse(stringifiedObject);
     } catch (e) {
-      console.log('something went wrong');
-      throw new Error('something went wrong');
+      throw new Error(e.message);
     }
   };
 
