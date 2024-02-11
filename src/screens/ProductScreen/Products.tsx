@@ -15,6 +15,7 @@ const Products = () => {
         price={item.price}
         id={item.id}
         quantity={1}
+        linePrice={item.linePrice}
       />
     ),
     [],

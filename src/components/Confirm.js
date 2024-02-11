@@ -36,5 +36,6 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
