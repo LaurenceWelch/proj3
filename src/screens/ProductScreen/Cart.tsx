@@ -1,11 +1,12 @@
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React, {useCallback} from 'react';
 import {FlatList} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../store';
 import {Product} from '../../types';
 import MyText from '../../components/MyText';
 import MyButton from '../../components/MyButton';
+import {add, removeAll, removeOne} from '../../features/cartSlice';
 
 const Cart = () => {
   const data = useSelector((state: RootState) => state.cart);
@@ -48,15 +49,29 @@ const Footer = () => {
   );
 };
 
-const ListItem = ({title, quantity, linePrice}: Product) => {
+const ListItem = ({id, title, quantity, linePrice}: Product) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.listItem}>
       <MyText>{title}</MyText>
       <View style={styles.textContainer}>
         <View style={styles.text}>
           <MyText>quantity: {quantity}</MyText>
-          <MyButton title={'-'} submit={() => {}} disabled={false} />
-          <MyButton title={'+'} submit={() => {}} disabled={false} />
+          <MyButton
+            title={'-'}
+            submit={() => dispatch(removeOne(id))}
+            disabled={false}
+          />
+          <MyButton
+            title={'+'}
+            submit={() => dispatch(add(id))}
+            disabled={false}
+          />
+          <MyButton
+            title={'x'}
+            submit={() => dispatch(removeAll(id))}
+            disabled={false}
+          />
         </View>
       </View>
       <View style={styles.linePrice}>

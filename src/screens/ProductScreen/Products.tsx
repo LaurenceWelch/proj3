@@ -4,6 +4,8 @@ import {PRODUCTS} from '../../consts';
 import {Product} from '../../types';
 import MyText from '../../components/MyText';
 import MyButton from '../../components/MyButton';
+import {useDispatch} from 'react-redux';
+import {add} from '../../features/cartSlice';
 
 const Products = () => {
   const render = useCallback(
@@ -29,7 +31,8 @@ const Products = () => {
   );
 };
 
-const ListItem = ({title, price}: Product) => {
+const ListItem = ({id, title, price}: Product) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.listItem}>
       <View style={styles.listText}>
@@ -37,7 +40,13 @@ const ListItem = ({title, price}: Product) => {
         <MyText>price: {price}</MyText>
       </View>
       <View style={styles.buttonView}>
-        <MyButton title={'add to cart'} submit={() => {}} disabled={false} />
+        <MyButton
+          title={'add to cart'}
+          submit={() => {
+            dispatch(add(id));
+          }}
+          disabled={false}
+        />
       </View>
     </View>
   );
