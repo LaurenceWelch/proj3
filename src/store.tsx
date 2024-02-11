@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import TodoListReducer from './features/todoListSlice';
+import CartReducer from './features/cartSlice';
 
 export const store = configureStore({
   reducer: {
     todoList: TodoListReducer,
+    cart: CartReducer,
   },
 });
 

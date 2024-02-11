@@ -12,10 +12,12 @@ export type TodoListState = {
 };
 
 // cart stuff
-export type cartState = {list: Product[]};
+export type CartState = {list: Product[]; totalPrice: number};
+
 export type Product = {
   id: number;
   title: string;
   price: number;
   quantity: number;
+  linePrice: number;
 };

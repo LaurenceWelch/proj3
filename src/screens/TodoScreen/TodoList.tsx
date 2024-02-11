@@ -18,13 +18,6 @@ const TodoList = () => {
     PersistanceHelper.setObject(TODO_KEY, data);
   }, [data]);
 
-  type Todo = {
-    id: number;
-    title: string;
-    description: string;
-    dueDate: number;
-  };
-
   const render = useCallback(
     ({item}: {item: Todo}) => (
       <ListItem
@@ -37,12 +30,12 @@ const TodoList = () => {
     [],
   );
 
+  const getKey = useCallback((_: any, index: number) => {
+    return index.toString();
+  }, []);
+
   return (
-    <FlatList
-      data={data.list}
-      renderItem={render}
-      keyExtractor={(_, index) => index.toString()}
-    />
+    <FlatList data={data.list} renderItem={render} keyExtractor={getKey} />
   );
 };
 
