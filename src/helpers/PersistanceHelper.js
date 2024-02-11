@@ -29,6 +29,7 @@ class PersistanceHelper {
       console.log(stringifiedObject);
       console.log('STRINGIFIED ^');
       const obj = JSON.parse(stringifiedObject);
+      console.log('parsed object:', obj);
       if (Object.keys(obj).length === 0) {
         throw new Error('empty object found');
       }

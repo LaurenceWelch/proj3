@@ -1,7 +1,8 @@
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import React from 'react';
 import MyInput from '../../components/MyInput';
 import MyButton from '../../components/MyButton';
+import MyText from '../../components/MyText';
 
 const TodoForm = props => {
   return (
@@ -16,11 +17,9 @@ const TodoForm = props => {
         placeholder={'description'}
         onChange={val => props.setDescription(val)}
       />
-      <MyInput
-        val={props.dueDate}
-        placeholder={'due date'}
-        onChange={val => props.setDueDate(val)}
-      />
+      <TouchableOpacity style={styles.date} onPress={() => props.setOpen(true)}>
+        <MyText>due: {props.dueDate.toLocaleString('en-US')}</MyText>
+      </TouchableOpacity>
       <View style={styles.buttons}>
         <MyButton
           title={'submit'}
@@ -33,7 +32,7 @@ const TodoForm = props => {
             props.submit();
           }}
         />
-        <MyButton title={'cancel'} disabled={false} submit={props.cancel} />
+        <MyButton title={'close'} disabled={false} submit={props.cancel} />
       </View>
     </View>
   );
@@ -43,5 +42,6 @@ export default TodoForm;
 
 const styles = StyleSheet.create({
   main: {flex: 1},
-  buttons: {flexDirection: 'row'},
+  buttons: {flexDirection: 'row', justifyContent: 'center'},
+  date: {backgroundColor: 'lavender', borderRadius: 10, padding: 3},
 });

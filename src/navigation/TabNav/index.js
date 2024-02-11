@@ -24,7 +24,7 @@ const TabBarIcon = (focused, color, size, route) => {
 const TabNav = () => {
   return (
     <Tab.Navigator
-      initialRouteName={'list'}
+      initialRouteName={'dash'}
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) =>
           TabBarIcon(focused, color, size, route),

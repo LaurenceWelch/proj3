@@ -14,7 +14,7 @@ const TodoList = () => {
   // async storage when the list changes
   useEffect(() => {
     console.log('todolist changed');
-    console.log('data is:', data);
+    console.log('data is blarg:', data);
     PersistanceHelper.setObject(TODO_KEY, data);
   }, [data]);
 

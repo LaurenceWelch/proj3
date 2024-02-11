@@ -8,18 +8,21 @@ import {add, set} from '../../features/todoListSlice';
 import {TODO_KEY} from '../../consts';
 import PersistanceHelper from '../../helpers/PersistanceHelper';
 import TodoForm from './TodoForm';
+import DatePicker from 'react-native-date-picker';
 
 const TodoScreen = () => {
   const [title, setTitle] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [dueDate, setDueDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     console.log('todoscreen did mount');
     PersistanceHelper.getObject(TODO_KEY)
       .then(data => {
+        console.log('data is:', data);
         dispatch(set(data));
       })
       .then(_ => setLoading(false))
@@ -33,6 +36,18 @@ const TodoScreen = () => {
   console.log('todoscreen render');
   return (
     <View style={styles.main}>
+      <DatePicker
+        modal
+        open={open}
+        date={dueDate}
+        onConfirm={date => {
+          setOpen(false);
+          setDueDate(date);
+        }}
+        onCancel={() => {
+          setOpen(false);
+        }}
+      />
       {loading === true ? (
         <View style={styles.loading}>
           <Text>loading...</Text>
@@ -48,9 +63,13 @@ const TodoScreen = () => {
                 dueDate={dueDate}
                 setTitle={(val: string) => setTitle(val)}
                 setDescription={(val: string) => setDescription(val)}
-                setDueDate={(val: number) => setDueDate(val)}
-                submit={() => dispatch(add({title, description, dueDate}))}
+                submit={() =>
+                  dispatch(
+                    add({title, description, dueDate: dueDate.toString()}),
+                  )
+                }
                 cancel={() => setShowForm(false)}
+                setOpen={() => setOpen(true)}
               />
             ) : (
               <MyButton

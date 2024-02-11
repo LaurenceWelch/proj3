@@ -3,7 +3,7 @@ export type Todo = {
   id: number;
   title: string;
   description: string;
-  dueDate: number;
+  dueDate: string;
 };
 
 export type TodoListState = {

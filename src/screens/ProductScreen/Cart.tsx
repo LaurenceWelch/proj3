@@ -44,16 +44,18 @@ const Footer = () => {
   const total = useSelector((state: RootState) => state.cart.totalPrice);
   return (
     <View style={styles.footer}>
-      <MyText>total price: {total}</MyText>
+      <MyText>total price: ${total}</MyText>
     </View>
   );
 };
 
-const ListItem = ({id, title, quantity, linePrice}: Product) => {
+const ListItem = ({id, title, quantity, price, linePrice}: Product) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.listItem}>
-      <MyText>{title}</MyText>
+      <MyText>
+        {title}: ${price}
+      </MyText>
       <View style={styles.textContainer}>
         <View style={styles.text}>
           <MyText>quantity: {quantity}</MyText>
@@ -75,7 +77,7 @@ const ListItem = ({id, title, quantity, linePrice}: Product) => {
         </View>
       </View>
       <View style={styles.linePrice}>
-        <MyText>line price: {linePrice}</MyText>
+        <MyText>line price: ${linePrice}</MyText>
       </View>
     </View>
   );

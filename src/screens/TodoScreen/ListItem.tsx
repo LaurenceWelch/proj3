@@ -12,9 +12,9 @@ const ListItem = ({id, title, description, dueDate}: Todo) => {
   return (
     <View style={styles.item}>
       <MyHeader>{title}</MyHeader>
-      <MyText>{id}</MyText>
-      <MyText>{description}</MyText>
-      <Text>{dueDate}</Text>
+      <MyText>due: {new Date(dueDate).toLocaleString('en-US')}</MyText>
+      {/* <MyText>{id}</MyText> */}
+      <MyText>description: {description}</MyText>
       <View style={styles.removeButtonView}>
         <MyButton
           title={'remove'}
