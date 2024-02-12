@@ -33,7 +33,6 @@ const TodoScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log('todoscreen render');
   return (
     <View style={styles.main}>
       <DatePicker
