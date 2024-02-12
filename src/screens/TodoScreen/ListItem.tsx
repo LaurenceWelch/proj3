@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import MyText from '../../components/MyText';

@@ -1,4 +1,4 @@
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import MyInput from '../../components/MyInput';
 import MyButton from '../../components/MyButton';
